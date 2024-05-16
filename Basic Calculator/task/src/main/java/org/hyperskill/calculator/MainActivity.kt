@@ -6,8 +6,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import org.hyperskill.calculator.databinding.ActivityMainBinding
 
-
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var editText: EditText
@@ -17,75 +15,53 @@ class MainActivity : AppCompatActivity() {
     private var lastOperator = ""
     private var secondNumber = 0.0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         editText = binding.displayEditText
         editText.inputType = InputType.TYPE_NULL
 
-        val clearButton = binding.clearButton
-        val equalButton = binding.equalButton
-
-        val addButton = binding.addButton
-        val subButton = binding.subtractButton
-        val multiplyButton = binding.multiplyButton
-        val divideButton = binding.divideButton
-
-        val button0 = binding.button0
-        val button1 = binding.button1
-        val button2 = binding.button2
-        val button3 = binding.button3
-        val button4 = binding.button4
-        val button5 = binding.button5
-        val button6 = binding.button6
-        val button7 = binding.button7
-        val button8 = binding.button8
-        val button9 = binding.button9
-        val dotButton = binding.dotButton
-
 
         // Handle the Clear button click
-        clearButton.setOnClickListener { clear() }
-
+        binding.clearButton.setOnClickListener { clear() }
 
         // Handle all of the numbers button click
-        button0.setOnClickListener {
-            if (!(editText.text.length == 1 && editText.text.toString() == "0"))  editText.text.append(button0.text)
+        binding.button0.setOnClickListener {
+            if (!(editText.text.length == 1 && editText.text.toString() == "0"))  editText.text.append(getString(R.string.zero))
         }
-        button1.setOnClickListener { addNumber(button1.text.toString()) }
-        button2.setOnClickListener { addNumber(button2.text.toString()) }
-        button3.setOnClickListener { addNumber(button3.text.toString()) }
-        button4.setOnClickListener { addNumber(button4.text.toString()) }
-        button5.setOnClickListener { addNumber(button5.text.toString()) }
-        button6.setOnClickListener { addNumber(button6.text.toString()) }
-        button7.setOnClickListener { addNumber(button7.text.toString()) }
-        button8.setOnClickListener { addNumber(button8.text.toString()) }
-        button9.setOnClickListener { addNumber(button9.text.toString()) }
+
+        binding.button1.setOnClickListener { addNumber(getString(R.string.one)) }
+        binding.button2.setOnClickListener { addNumber(getString(R.string.two)) }
+        binding.button3.setOnClickListener { addNumber(getString(R.string.three)) }
+        binding.button4.setOnClickListener { addNumber(getString(R.string.four)) }
+        binding.button5.setOnClickListener { addNumber(getString(R.string.five)) }
+        binding.button6.setOnClickListener { addNumber(getString(R.string.six)) }
+        binding.button7.setOnClickListener { addNumber(getString(R.string.seven)) }
+        binding.button8.setOnClickListener { addNumber(getString(R.string.eight)) }
+        binding.button9.setOnClickListener { addNumber(getString(R.string.nine )) }
 
         // Handle the dot button
-        dotButton.setOnClickListener {
-            if (!editText.text.contains(dotButton.text)) {
+        binding.dotButton.setOnClickListener {
+            if (!editText.text.contains(getString(R.string.dot))) {
                 when {
                     editText.text.toString() == "-"  -> editText.text.append(getString(R.string.zeroDot))
-                    editText.text.isNotEmpty() -> editText.text.append(dotButton.text)
+                    editText.text.isNotEmpty() -> editText.text.append(getString(R.string.dot))
                     else -> editText.setText(getString(R.string.zeroDot))
                 }
             }
         }
 
         // Handle of all operators buttons
-        addButton.setOnClickListener { addOperator(addButton.text.toString()) }
-        multiplyButton.setOnClickListener { addOperator(multiplyButton.text.toString()) }
-        divideButton.setOnClickListener { addOperator(divideButton.text.toString()) }
-        subButton.setOnClickListener {
-            if (editText.text.isEmpty() && (operator != "" || (lastOperator == "")) ) editText.text.append(subButton.text)
-            else addOperator(subButton.text.toString())
+        binding.multiplyButton.setOnClickListener { addOperator(getString(R.string.multiply)) }
+        binding.addButton.setOnClickListener { addOperator(getString(R.string.add)) }
+        binding.divideButton.setOnClickListener { addOperator(getString(R.string.divide)) }
+        binding.subtractButton.setOnClickListener {
+            if (editText.text.isEmpty() && (operator != "" || (lastOperator == "")) ) editText.text.append(getString(R.string.subtract))
+            else addOperator(getString(R.string.subtract))
         }
 
-        equalButton.setOnClickListener {
+        binding.equalButton.setOnClickListener {
             when {
                 operator != "" -> calculate(firstNumber, editText.text.toString(), operator)
                 lastOperator != "" -> calculate(firstNumber, editText.text.toString(), lastOperator)
@@ -148,5 +124,4 @@ class MainActivity : AppCompatActivity() {
         firstNumber = 0.0
         secondNumber = 0.0
     }
-
 }
